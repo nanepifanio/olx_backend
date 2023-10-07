@@ -3,8 +3,8 @@ import path from 'path';
 import cors from 'cors';
 import passport from 'passport';
 import { MulterError } from 'multer';
-import accessEndpoints from './routes/access';
 import { mongoConnect } from './database/mongo';
+import * as ApiRoutes from './routes';
 
 mongoConnect();
 
@@ -18,7 +18,7 @@ server.use(express.urlencoded({ extended: true }));
 
 server.use(passport.initialize());
 
-server.use(accessEndpoints);
+server.use(ApiRoutes.authRoutes);
 
 server.use((__, res: Response) => {
   res.status(400).json({ error: 'endpoint no encontrado!' });

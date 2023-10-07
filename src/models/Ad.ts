@@ -1,23 +1,23 @@
 import { Schema, connection, Model, model } from 'mongoose';
 
-type AdsType = {
+type AdType = {
   images: {
     url: string;
     default: boolean;
   }[];
   idUser: string;
-  dateCreated: string;
+  dateCreated: Date;
   title: string;
   category: string;
   price: number;
   priceNegotiable: boolean;
   description: string;
   views: number;
-  status: boolean;
+  status: string;
   state: string;
 };
 
-const schema = new Schema<AdsType>({
+const schema = new Schema<AdType>({
   images: Array<{
     url: {
       type: String;
@@ -33,7 +33,7 @@ const schema = new Schema<AdsType>({
     required: true,
   },
   dateCreated: {
-    type: String,
+    type: Date,
     required: true,
   },
   description: {
@@ -57,8 +57,7 @@ const schema = new Schema<AdsType>({
     required: true,
   },
   status: {
-    type: Boolean,
-    default: true,
+    type: String,
   },
   title: {
     type: String,
@@ -72,5 +71,5 @@ const schema = new Schema<AdsType>({
 const modelName = 'Ads';
 
 export default connection && connection.models[modelName]
-  ? (connection.models[modelName] as Model<AdsType>)
-  : model<AdsType>(modelName, schema);
+  ? (connection.models[modelName] as Model<AdType>)
+  : model<AdType>(modelName, schema);
