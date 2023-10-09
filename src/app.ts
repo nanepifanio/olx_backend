@@ -19,6 +19,10 @@ server.use(express.urlencoded({ extended: true }));
 server.use(passport.initialize());
 
 server.use(ApiRoutes.authRoutes);
+server.use(ApiRoutes.userRoutes);
+server.use(ApiRoutes.categoryRoutes);
+server.use(ApiRoutes.stateRoutes);
+server.use(ApiRoutes.adsRoutes);
 
 server.use((__, res: Response) => {
   res.status(400).json({ error: 'endpoint no encontrado!' });
