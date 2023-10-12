@@ -10,3 +10,5 @@ export const getAd = async (req: Request, res: Response) => {};
 export const updateAd = async (req: Request, res: Response) => {};
 
 export const deleteAd = async (req: Request, res: Response) => {};
+
+export const getCategories = async (req: Request, res: Response) => {};

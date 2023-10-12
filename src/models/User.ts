@@ -4,7 +4,6 @@ export type UserType = {
   name: string;
   email: string;
   passwordHash: string;
-  token: string;
   state: string;
 };
 
@@ -22,10 +21,6 @@ const schema = new Schema<UserType>({
     required: true,
   },
   passwordHash: {
-    type: String,
-    required: true,
-  },
-  token: {
     type: String,
     required: true,
   },

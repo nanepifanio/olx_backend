@@ -20,12 +20,10 @@ server.use(passport.initialize());
 
 server.use(ApiRoutes.authRoutes);
 server.use(ApiRoutes.userRoutes);
-server.use(ApiRoutes.categoryRoutes);
-server.use(ApiRoutes.stateRoutes);
 server.use(ApiRoutes.adsRoutes);
 
 server.use((__, res: Response) => {
-  res.status(400).json({ error: 'endpoint no encontrado!' });
+  res.status(400).json({ error: 'endpoint não encontrado!' });
 });
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
