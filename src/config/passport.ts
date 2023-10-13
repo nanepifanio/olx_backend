@@ -19,7 +19,7 @@ passport.use(
     const user = await Models.User.findById(payload.id);
 
     if (user) {
-      return done(null, user);
+      return done(null, { id: user.id });
     }
 
     return done(notAuthorized, false);
@@ -35,9 +35,9 @@ export const privateRoute = (
   res: Response,
   next: NextFunction
 ) => {
-  return passport.authenticate('jwt', (err: Error, user: Models.UserType) => {
-    req.user = user;
-    return user ? next() : next(notAuthorized);
+  return passport.authenticate('jwt', (err: Error, userId: string) => {
+    req.user = userId;
+    return userId ? next() : next(notAuthorized);
   })(req, res, next);
 };
 
