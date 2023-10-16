@@ -15,7 +15,7 @@ export const updateUserInfoValidator = checkSchema({
     },
     errorMessage: 'A senha precisa ter pelo menos 8 caracteres!',
   },
-  state: {
+  stateId: {
     optional: true,
     errorMessage: 'Escolha um estado!',
   },

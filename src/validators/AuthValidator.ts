@@ -20,7 +20,7 @@ export const signupValidator = checkSchema({
     },
     errorMessage: 'A senha precisa ter pelo menos 8 caracteres!',
   },
-  state: {
+  stateId: {
     notEmpty: true,
     errorMessage: 'Escolha um estado!',
   },

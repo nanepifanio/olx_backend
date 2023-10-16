@@ -19,24 +19,52 @@ export const updateUserInfoOrInfos = async (
   dataToUpdate: UserData
 ) => {
   const user = await User.findById(id);
+  const { stateId, name, email, password } = dataToUpdate;
 
   if (user) {
-    if (dataToUpdate.email) {
-      const emailExists = await User.findOne({ email: dataToUpdate.email });
+    if (email) {
+      const emailExists = await User.findOne({ email });
 
       if (emailExists) {
-        return new Error('Esse e-mail já está cadastrado!');
+        return new Error('Esse e-mail já existe na nossa base de dados!');
       }
 
-      user.email = dataToUpdate.email;
+      user.email = email;
     }
 
-    user.passwordHash = dataToUpdate.password
-      ? bcrypt.hashSync(dataToUpdate.password, 10)
-      : user.passwordHash;
-    user.state = dataToUpdate.state || user.state;
-    user.name = dataToUpdate.name || user.name;
+    if (password) {
+      const isEqualToPreviousPassword = bcrypt.compareSync(
+        password,
+        user.passwordHash
+      );
+
+      if (isEqualToPreviousPassword) {
+        return new Error('Essa é sua senha atual, escolha outra!');
+      }
+
+      user.passwordHash = bcrypt.hashSync(password, 10);
+    }
+
+    if (stateId) {
+      const state = await State.findById(stateId);
+
+      if (!state) {
+        return new Error('Estado inválido!');
+      }
+
+      user.state = state?.name as string;
+    }
+
+    if (name) {
+      user.name = name;
+    }
   }
 
   return await user?.save();
+};
+
+export const deleteUser = async (id: string) => {
+  const user = await User.findById(id);
+
+  return await user?.deleteOne();
 };

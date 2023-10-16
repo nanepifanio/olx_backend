@@ -43,7 +43,18 @@ export const updateUserInfo = async (req: Request, res: Response) => {
     );
 };
 
-export const deleteUser = async (req: Request, res: Response) => {};
+export const deleteUser = async (req: Request, res: Response) => {
+  const { id } = req.user as { id: string };
+
+  const deletedUser = await UserService.deleteUser(id);
+
+  if (!deletedUser) {
+    res.status(404).json({ error: 'Não foi possível efetuar a remoção!' });
+    return;
+  }
+
+  res.json({ message: 'Remoção realizada com sucesso!' });
+};
 
 export const getStates = async (req: Request, res: Response) => {
   const states = await UserService.getAllStates();
