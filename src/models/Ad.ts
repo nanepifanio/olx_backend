@@ -1,6 +1,6 @@
 import { Schema, connection, Model, model } from 'mongoose';
 
-type AdType = {
+export type AdType = {
   images: {
     url: string;
     default: boolean;
@@ -58,6 +58,7 @@ const schema = new Schema<AdType>({
   },
   status: {
     type: String,
+    default: 'Disponível',
   },
   title: {
     type: String,
@@ -65,6 +66,7 @@ const schema = new Schema<AdType>({
   },
   views: {
     type: Number,
+    default: 0,
   },
 });
 

@@ -1,7 +1,8 @@
 import { Router } from 'express';
+import multer from 'multer';
 import * as AdsController from '../controllers/ads.controller';
 import { privateRoute } from '../config/passport';
-import multer from 'multer';
+import { postAdValidator } from '../validators';
 
 const upload = multer({
   dest: './tmp',
@@ -20,7 +21,8 @@ const router = Router();
 router.post(
   '/ad/add',
   privateRoute,
-  upload.array('ad-imgs', 5),
+  upload.array('images', 5),
+  postAdValidator,
   AdsController.postAd
 );
 router.get('/ads', AdsController.getAllAds);
